@@ -18,6 +18,7 @@ class CateogriesScreen extends StatelessWidget {
         var cateogriesModel = cubit.cateogriesModel!.data!.data;
 
         return SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.fromLTRB(25, 70, 25, 20),
             child: Column(
@@ -42,45 +43,6 @@ class CateogriesScreen extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      Container(
-                        // padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.grey[300]!,
-                              width: 1,
-                            )),
-                        child: Stack(
-                          children: [
-                            IconButton(
-                              // borderRadius: BorderRadius.circular(25),
-                              // radius: 90,
-                              onPressed: () {},
-                              splashRadius: 24,
-                              icon: Icon(
-                                Icons.notifications_none_rounded,
-                                size: 25,
-                              ),
-                            ),
-                            Positioned(
-                              right: 15,
-                              top: 15,
-                              child: Container(
-                                width: 9,
-                                height: 9,
-                                decoration: BoxDecoration(
-                                  color: accentColor,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),
@@ -105,6 +67,7 @@ class CateogriesScreen extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   // padding: EdgeInsets.all(20),
                   itemBuilder: (context, index) {
+                    //either cateogryItem1 or cateogryItem2
                     return cateogryItem2(cateogriesModel[index]);
                   },
                 ),

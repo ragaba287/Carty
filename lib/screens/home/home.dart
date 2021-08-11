@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/screens/search.dart';
 import 'package:shop_app/style/theme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +31,10 @@ class HomeScreen extends StatelessWidget {
           //         icon: Icon(Icons.search)),
           //   ],
           // ),
-          body: state is HomeSuccessState || state is HomeChangeNavState
+          body: state is HomeSuccessState ||
+                  state is HomeChangeNavState ||
+                  state is AddToCartSuccessState ||
+                  state is CartChangedSuccessState
               ? cubit.bottomScreens[cubit.currentIndex]
               : Center(
                   child: CircularProgressIndicator(

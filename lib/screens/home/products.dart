@@ -1,17 +1,14 @@
-import 'dart:ui';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/cubit/sign/signCubit.dart';
 import 'package:shop_app/model/home/cateogriesModel.dart';
 import 'package:shop_app/model/home/homeModel.dart';
+import 'package:shop_app/screens/cart.dart';
 import 'package:shop_app/screens/search.dart';
 import 'package:shop_app/style/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shop_app/widgets/buttonMain.dart';
-import 'package:shop_app/widgets/textFieldGrey.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
@@ -19,12 +16,22 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AddToCartSuccessState && state.message != null)
+          Fluttertoast.showToast(
+            msg: state.message!,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: accentColor,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+      },
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         var cateogriesModel = cubit.cateogriesModel!.data!.data;
         ThemeData theme = Theme.of(context);
-        TextEditingController searchTextEdit = TextEditingController();
         return SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -61,31 +68,34 @@ class ProductsScreen extends StatelessWidget {
                       child: Stack(
                         children: [
                           IconButton(
-                            // borderRadius: BorderRadius.circular(25),
-                            // radius: 90,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CartScreen(),
+                              ));
+                            },
                             splashRadius: 24,
                             icon: Icon(
-                              Icons.notifications_none_rounded,
+                              Icons.shopping_cart_outlined,
                               size: 25,
                             ),
                           ),
-                          Positioned(
-                            right: 15,
-                            top: 15,
-                            child: Container(
-                              width: 9,
-                              height: 9,
-                              decoration: BoxDecoration(
-                                color: accentColor,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 1,
+                          if (cubit.cartIsFull)
+                            Positioned(
+                              right: 11,
+                              top: 11,
+                              child: Container(
+                                width: 10,
+                                height: 10,
+                                decoration: BoxDecoration(
+                                  color: accentColor,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 1,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                     )
@@ -274,7 +284,7 @@ class ProductsScreen extends StatelessWidget {
                     ),
                     Spacer(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => cubit.changeBottomNav(1),
                       child: Text(
                         'See all',
                         style: TextStyle(
@@ -393,11 +403,11 @@ class ProductsScreen extends StatelessWidget {
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                childAspectRatio: 1 / 1.4,
+                childAspectRatio: 1 / 1.43,
                 children: List.generate(
                   cubit.homeModel!.data!.products.length,
                   (index) => productItem(
-                      cubit.homeModel!.data!.products[index], theme),
+                      cubit.homeModel!.data!.products[index], theme, cubit),
                 ),
               ),
             ],
@@ -407,7 +417,9 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget productItem(ProductsModel productModel, ThemeData theme) => Container(
+  Widget productItem(
+          ProductsModel productModel, ThemeData theme, HomeCubit cubit) =>
+      Container(
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -478,7 +490,7 @@ class ProductsScreen extends StatelessWidget {
                   ),
               ],
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 17),
             Text(
               '${productModel.name!}',
               maxLines: 1,
@@ -500,21 +512,33 @@ class ProductsScreen extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    cubit.changeInCart(productModel.id!);
+                  },
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
-                    padding: EdgeInsets.all(2),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
+                      color: cubit.inCart[productModel.id]!
+                          ? accentColor
+                          : Colors.transparent,
+                      border: Border.all(
+                          color: cubit.inCart[productModel.id]!
+                              ? accentColor
+                              : Colors.black),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
-                      Icons.add,
-                      color: Colors.black,
+                      cubit.inCart[productModel.id]!
+                          ? Icons.shopping_cart_outlined
+                          : Icons.add,
+                      color: cubit.inCart[productModel.id]!
+                          ? Colors.white
+                          : Colors.black,
                       size: 18,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],

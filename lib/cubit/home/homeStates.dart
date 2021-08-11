@@ -15,3 +15,14 @@ class HomeErrorState extends HomeStates {}
 class CateogriesSuccessState extends HomeStates {}
 
 class CateogriesErrorState extends HomeStates {}
+
+class AddToCartSuccessState extends HomeStates {
+  final String? message;
+  AddToCartSuccessState({this.message});
+}
+
+class AddToCartErrorState extends HomeStates {}
+
+class CartChangedSuccessState extends HomeStates {}
+
+class CartChangedErrorState extends HomeStates {}

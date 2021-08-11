@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/cubit/sign/signCubit.dart';
 import 'package:shop_app/cubit/sign/signStates.dart';
-import 'package:shop_app/screens/home.dart';
+import 'package:shop_app/screens/home/home.dart';
 import 'package:shop_app/screens/sign/signUp.dart';
 import 'package:shop_app/sharedpreference/sharedpreference.dart';
 import 'package:shop_app/widgets/buttonMain.dart';
