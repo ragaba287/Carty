@@ -25,4 +25,6 @@ class AddToCartErrorState extends HomeStates {}
 
 class CartChangedSuccessState extends HomeStates {}
 
+class CartChangedLoadingState extends HomeStates {}
+
 class CartChangedErrorState extends HomeStates {}

@@ -42,14 +42,18 @@ class ProductsScreen extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(25, 70, 25, 0),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundImage: NetworkImage(
-                          'https://student.valuxapps.com/storage/assets/defaults/user.jpg'),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(30),
+                      onTap: () {},
+                      child: CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage(
+                            cubit.userModel!.data!.image!,
+                          )),
                     ),
                     SizedBox(width: 10),
                     Text(
-                      'Hello Ahmed!',
+                      'Hello ${cubit.userName}!',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -406,8 +410,8 @@ class ProductsScreen extends StatelessWidget {
                 childAspectRatio: 1 / 1.43,
                 children: List.generate(
                   cubit.homeModel!.data!.products.length,
-                  (index) => productItem(
-                      cubit.homeModel!.data!.products[index], theme, cubit),
+                  (index) => productItem(cubit.homeModel!.data!.products[index],
+                      theme, cubit, context),
                 ),
               ),
             ],
@@ -418,7 +422,11 @@ class ProductsScreen extends StatelessWidget {
   }
 
   Widget productItem(
-          ProductsModel productModel, ThemeData theme, HomeCubit cubit) =>
+    ProductsModel productModel,
+    ThemeData theme,
+    HomeCubit cubit,
+    context,
+  ) =>
       Container(
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
@@ -432,116 +440,125 @@ class ProductsScreen extends StatelessWidget {
             )
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                CachedNetworkImage(
-                  imageUrl: productModel.image!,
-                  imageBuilder: (context, imageProvider) => Container(
-                    height: 160,
-                    width: double.infinity,
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      // color: Color(0xffF5F7FB),
-                      borderRadius: BorderRadius.circular(25),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        // fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                  ),
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                      value: downloadProgress.progress,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-                ),
-                if (productModel.discount! != 0)
-                  Positioned(
-                    bottom: 15,
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ProductsScreen(),
+              ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: productModel.image!,
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: 160,
+                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
-                        color: accentColor,
-                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        // color: Color(0xffF5F7FB),
+                        borderRadius: BorderRadius.circular(25),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          // fit: BoxFit.fitHeight,
+                        ),
                       ),
-                      // height: 20,
-                      child: Center(
-                        child: Text(
-                          '${productModel.discount!} %',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                    ),
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                      child: CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  ),
+                  if (productModel.discount! != 0)
+                    Positioned(
+                      bottom: 15,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: accentColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        // height: 20,
+                        child: Center(
+                          child: Text(
+                            '${productModel.discount!} %',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-              ],
-            ),
-            SizedBox(height: 17),
-            Text(
-              '${productModel.name!}',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.headline5!.copyWith(
-                fontSize: 17,
+                ],
               ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '\$ ${productModel.price!.toString()}',
-                  style: TextStyle(
-                    color: accentColor,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 17,
-                  ),
+              SizedBox(height: 17),
+              Text(
+                '${productModel.name!}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.headline5!.copyWith(
+                  fontSize: 17,
                 ),
-                InkWell(
-                  onTap: () {
-                    cubit.changeInCart(productModel.id!);
-                  },
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: cubit.inCart[productModel.id]!
-                          ? accentColor
-                          : Colors.transparent,
-                      border: Border.all(
-                          color: cubit.inCart[productModel.id]!
-                              ? accentColor
-                              : Colors.black),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      cubit.inCart[productModel.id]!
-                          ? Icons.shopping_cart_outlined
-                          : Icons.add,
-                      color: cubit.inCart[productModel.id]!
-                          ? Colors.white
-                          : Colors.black,
-                      size: 18,
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '\$ ${productModel.price!.toString()}',
+                    style: TextStyle(
+                      color: accentColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 17,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  InkWell(
+                    onTap: () {
+                      cubit.changeInCart(productModel.id!);
+                    },
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: cubit.inCart[productModel.id]!
+                            ? accentColor
+                            : Colors.transparent,
+                        border: Border.all(
+                            color: cubit.inCart[productModel.id]!
+                                ? accentColor
+                                : Colors.black),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        cubit.inCart[productModel.id]!
+                            ? Icons.shopping_cart_outlined
+                            : Icons.add,
+                        color: cubit.inCart[productModel.id]!
+                            ? Colors.white
+                            : Colors.black,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       );
 }

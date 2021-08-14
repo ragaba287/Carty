@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/cubit/home/homeCubit.dart';
+import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/cubit/sign/signCubit.dart';
 import 'package:shop_app/screens/home/home.dart';
 import 'package:shop_app/screens/sign/login.dart';
@@ -15,7 +17,9 @@ void main() async {
   Widget widgetHome = OnBoardingScreen();
   bool? onBoarding = await Sharedpreference.getData(key: 'onBoarding');
   token = await Sharedpreference.getData(key: 'token');
+  isDarkMode = await Sharedpreference.getData(key: 'isDarkMode');
   print(token);
+  print(isDarkMode);
   if (onBoarding != null) {
     if (token != null)
       widgetHome = HomeScreen();
@@ -35,21 +39,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (BuildContext context) => ShopSignCubit()),
-        BlocProvider(
-          create: (BuildContext context) => HomeCubit()
-            ..getHomeData()
-            ..getCateogriesData(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        themeMode: ThemeMode.light,
-        home: widgetHome,
-      ),
-    );
+        providers: [
+          BlocProvider(create: (BuildContext context) => ShopSignCubit()),
+          BlocProvider(
+            create: (BuildContext context) => HomeCubit()
+              ..getHomeData()
+              ..getCateogriesData()
+              ..getUserData(),
+          ),
+        ],
+        child: BlocConsumer<HomeCubit, HomeStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarIconBrightness:
+                  isDarkMode ? Brightness.light : Brightness.dark,
+            ));
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              home: widgetHome,
+            );
+          },
+        ));
   }
 }

@@ -30,12 +30,12 @@ class CateogriesScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 25,
-                        backgroundImage: NetworkImage(
-                            'https://student.valuxapps.com/storage/assets/defaults/user.jpg'),
+                        backgroundImage:
+                            NetworkImage(cubit.userModel!.data!.image!),
                       ),
                       SizedBox(width: 10),
                       Text(
-                        'Hello Ahmed!',
+                        'Hello ${cubit.userName}!',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
