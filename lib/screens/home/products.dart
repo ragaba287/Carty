@@ -6,6 +6,7 @@ import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/model/home/cateogriesModel.dart';
 import 'package:shop_app/model/home/homeModel.dart';
 import 'package:shop_app/screens/cart.dart';
+import 'package:shop_app/screens/products/product.dart';
 import 'package:shop_app/screens/search.dart';
 import 'package:shop_app/style/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -408,10 +409,11 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisSpacing: 20,
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 childAspectRatio: 1 / 1.43,
+                // childAspectRatio: 1 / 1.8,
                 children: List.generate(
                   cubit.homeModel!.data!.products.length,
                   (index) => productItem(cubit.homeModel!.data!.products[index],
-                      theme, cubit, context),
+                      theme, cubit, context, index),
                 ),
               ),
             ],
@@ -421,33 +423,26 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget productItem(
-    ProductsModel productModel,
-    ThemeData theme,
-    HomeCubit cubit,
-    context,
-  ) =>
-      Container(
-        padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[100]!.withOpacity(.8),
-              blurRadius: 8,
-              spreadRadius: 5,
-            )
-          ],
-        ),
-        child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ProductsScreen(),
-              ),
-            );
-          },
+  Widget productItem(ProductsModel productModel, ThemeData theme,
+          HomeCubit cubit, context, int index) =>
+      InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ProductScreen(index)));
+        },
+        child: Container(
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[100]!.withOpacity(.8),
+                blurRadius: 8,
+                spreadRadius: 5,
+              )
+            ],
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -1,0 +1,131 @@
+Date : 2021-08-17 21:41:52
+Directory : d:\myflutterapp\shop_app
+Total : 58 files,  3885 codes, 245 comments, 277 blanks, all 4407 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Dart       |         30 |      3,318 |        176 |        207 |      3,701 |
+| JSON       |          3 |        168 |          0 |          3 |        171 |
+| XML        |         14 |        131 |         51 |         11 |        193 |
+| HTML       |          1 |         79 |         14 |          6 |         99 |
+| Groovy     |          3 |         79 |          3 |         20 |        102 |
+| YAML       |          1 |         76 |          0 |         16 |         92 |
+| Markdown   |          2 |         13 |          0 |          9 |         22 |
+| Swift      |          1 |         12 |          0 |          2 |         14 |
+| Properties |          2 |          8 |          1 |          2 |         11 |
+| C++        |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                   | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                      |         58 |      3,885 |        245 |        277 |      4,407 |
+| android                                                                                |         12 |        152 |         53 |         31 |        236 |
+| android\app                                                                            |          8 |        111 |         52 |         20 |        183 |
+| android\app\src                                                                        |          7 |         65 |         49 |          9 |        123 |
+| android\app\src\debug                                                                  |          1 |          4 |          3 |          1 |          8 |
+| android\app\src\main                                                                   |          5 |         57 |         43 |          7 |        107 |
+| android\app\src\main\res                                                               |          4 |         26 |         32 |          6 |         64 |
+| android\app\src\main\res\drawable                                                      |          1 |          4 |          7 |          2 |         13 |
+| android\app\src\main\res\drawable-v21                                                  |          1 |          4 |          7 |          2 |         13 |
+| android\app\src\main\res\values                                                        |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\main\res\values-night                                                  |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\profile                                                                |          1 |          4 |          3 |          1 |          8 |
+| android\gradle                                                                         |          1 |          5 |          1 |          1 |          7 |
+| android\gradle\wrapper                                                                 |          1 |          5 |          1 |          1 |          7 |
+| assets                                                                                 |          5 |          5 |          0 |          0 |          5 |
+| assets\home                                                                            |          1 |          1 |          0 |          0 |          1 |
+| assets\onBoarding                                                                      |          3 |          3 |          0 |          0 |          3 |
+| ios                                                                                    |          7 |        222 |          2 |          9 |        233 |
+| ios\Runner                                                                             |          7 |        222 |          2 |          9 |        233 |
+| ios\Runner\Assets.xcassets                                                             |          3 |        148 |          0 |          4 |        152 |
+| ios\Runner\Assets.xcassets\AppIcon.appiconset                                          |          1 |        122 |          0 |          1 |        123 |
+| ios\Runner\Assets.xcassets\LaunchImage.imageset                                        |          2 |         26 |          0 |          3 |         29 |
+| ios\Runner\Base.lproj                                                                  |          2 |         61 |          2 |          2 |         65 |
+| lib                                                                                    |         30 |      3,318 |        176 |        207 |      3,701 |
+| lib\cubit                                                                              |          4 |        314 |          2 |         63 |        379 |
+| lib\cubit\home                                                                         |          2 |        234 |          0 |         44 |        278 |
+| lib\cubit\sign                                                                         |          2 |         80 |          2 |         19 |        101 |
+| lib\dio                                                                                |          1 |         69 |          0 |          9 |         78 |
+| lib\model                                                                              |          8 |        281 |          0 |         47 |        328 |
+| lib\model\home                                                                         |          4 |        146 |          0 |         25 |        171 |
+| lib\model\settings                                                                     |          1 |         28 |          0 |          6 |         34 |
+| lib\model\sign                                                                         |          2 |         56 |          0 |          8 |         64 |
+| lib\screens                                                                            |         12 |      2,375 |        173 |         65 |      2,613 |
+| lib\screens\home                                                                       |          5 |        992 |        167 |         29 |      1,188 |
+| lib\screens\products                                                                   |          1 |        312 |          4 |          5 |        321 |
+| lib\screens\settings                                                                   |          1 |        117 |          0 |          5 |        122 |
+| lib\screens\sign                                                                       |          3 |        524 |          0 |         18 |        542 |
+| lib\sharedpreference                                                                   |          1 |         26 |          0 |          7 |         33 |
+| lib\style                                                                              |          1 |         49 |          0 |          4 |         53 |
+| lib\widgets                                                                            |          2 |        138 |          1 |          6 |        145 |
+| web                                                                                    |          2 |        102 |         14 |          7 |        123 |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                               | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\myflutterapp\shop_app\README.md                                                     | Markdown   |         10 |          0 |          7 |         17 |
+| d:\myflutterapp\shop_app\android\app\build.gradle                                      | Groovy     |         46 |          3 |         11 |         60 |
+| d:\myflutterapp\shop_app\android\app\src\debug\AndroidManifest.xml                     | XML        |          4 |          3 |          1 |          8 |
+| d:\myflutterapp\shop_app\android\app\src\main\AndroidManifest.xml                      | XML        |         31 |         11 |          1 |         43 |
+| d:\myflutterapp\shop_app\android\app\src\main\res\drawable-v21\launch_background.xml   | XML        |          4 |          7 |          2 |         13 |
+| d:\myflutterapp\shop_app\android\app\src\main\res\drawable\launch_background.xml       | XML        |          4 |          7 |          2 |         13 |
+| d:\myflutterapp\shop_app\android\app\src\main\res\values-night\styles.xml              | XML        |          9 |          9 |          1 |         19 |
+| d:\myflutterapp\shop_app\android\app\src\main\res\values\styles.xml                    | XML        |          9 |          9 |          1 |         19 |
+| d:\myflutterapp\shop_app\android\app\src\profile\AndroidManifest.xml                   | XML        |          4 |          3 |          1 |          8 |
+| d:\myflutterapp\shop_app\android\build.gradle                                          | Groovy     |         25 |          0 |          5 |         30 |
+| d:\myflutterapp\shop_app\android\gradle.properties                                     | Properties |          3 |          0 |          1 |          4 |
+| d:\myflutterapp\shop_app\android\gradle\wrapper\gradle-wrapper.properties              | Properties |          5 |          1 |          1 |          7 |
+| d:\myflutterapp\shop_app\android\settings.gradle                                       | Groovy     |          8 |          0 |          4 |         12 |
+| d:\myflutterapp\shop_app\assets\google-icon.svg                                        | XML        |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\home\empty_cart.svg                                    | XML        |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\onBoarding\onBoard1.svg                                | XML        |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\onBoarding\onBoard2.svg                                | XML        |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\onBoarding\onBoard3.svg                                | XML        |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\ios\Runner\AppDelegate.swift                                  | Swift      |         12 |          0 |          2 |         14 |
+| d:\myflutterapp\shop_app\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json   | JSON       |        122 |          0 |          1 |        123 |
+| d:\myflutterapp\shop_app\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json | JSON       |         23 |          0 |          1 |         24 |
+| d:\myflutterapp\shop_app\ios\Runner\Assets.xcassets\LaunchImage.imageset\README.md     | Markdown   |          3 |          0 |          2 |          5 |
+| d:\myflutterapp\shop_app\ios\Runner\Base.lproj\LaunchScreen.storyboard                 | XML        |         36 |          1 |          1 |         38 |
+| d:\myflutterapp\shop_app\ios\Runner\Base.lproj\Main.storyboard                         | XML        |         25 |          1 |          1 |         27 |
+| d:\myflutterapp\shop_app\ios\Runner\Runner-Bridging-Header.h                           | C++        |          1 |          0 |          1 |          2 |
+| d:\myflutterapp\shop_app\lib\cubit\home\homeCubit.dart                                 | Dart       |        217 |          0 |         30 |        247 |
+| d:\myflutterapp\shop_app\lib\cubit\home\homeStates.dart                                | Dart       |         17 |          0 |         14 |         31 |
+| d:\myflutterapp\shop_app\lib\cubit\sign\signCubit.dart                                 | Dart       |         56 |          0 |          8 |         64 |
+| d:\myflutterapp\shop_app\lib\cubit\sign\signStates.dart                                | Dart       |         24 |          2 |         11 |         37 |
+| d:\myflutterapp\shop_app\lib\dio\dioHelper.dart                                        | Dart       |         69 |          0 |          9 |         78 |
+| d:\myflutterapp\shop_app\lib\main.dart                                                 | Dart       |         66 |          0 |          6 |         72 |
+| d:\myflutterapp\shop_app\lib\model\favoritesModel.dart                                 | Dart       |         51 |          0 |          8 |         59 |
+| d:\myflutterapp\shop_app\lib\model\home\addCartModel.dart                              | Dart       |          8 |          0 |          2 |         10 |
+| d:\myflutterapp\shop_app\lib\model\home\cartModel.dart                                 | Dart       |         51 |          0 |          7 |         58 |
+| d:\myflutterapp\shop_app\lib\model\home\cateogriesModel.dart                           | Dart       |         31 |          0 |          6 |         37 |
+| d:\myflutterapp\shop_app\lib\model\home\homeModel.dart                                 | Dart       |         56 |          0 |         10 |         66 |
+| d:\myflutterapp\shop_app\lib\model\settings\faqModel.dart                              | Dart       |         28 |          0 |          6 |         34 |
+| d:\myflutterapp\shop_app\lib\model\sign\loginModel.dart                                | Dart       |         30 |          0 |          4 |         34 |
+| d:\myflutterapp\shop_app\lib\model\sign\signUpModel.dart                               | Dart       |         26 |          0 |          4 |         30 |
+| d:\myflutterapp\shop_app\lib\screens\cart.dart                                         | Dart       |        419 |          2 |          5 |        426 |
+| d:\myflutterapp\shop_app\lib\screens\home\cateogries.dart                              | Dart       |        190 |          2 |          6 |        198 |
+| d:\myflutterapp\shop_app\lib\screens\home\favorites.dart                               | Dart       |        138 |         30 |          4 |        172 |
+| d:\myflutterapp\shop_app\lib\screens\home\home.dart                                    | Dart       |         46 |         15 |          4 |         65 |
+| d:\myflutterapp\shop_app\lib\screens\home\products.dart                                | Dart       |        431 |        119 |         10 |        560 |
+| d:\myflutterapp\shop_app\lib\screens\home\settings.dart                                | Dart       |        187 |          1 |          5 |        193 |
+| d:\myflutterapp\shop_app\lib\screens\products\product.dart                             | Dart       |        312 |          4 |          5 |        321 |
+| d:\myflutterapp\shop_app\lib\screens\search.dart                                       | Dart       |         11 |          0 |          3 |         14 |
+| d:\myflutterapp\shop_app\lib\screens\settings\faq.dart                                 | Dart       |        117 |          0 |          5 |        122 |
+| d:\myflutterapp\shop_app\lib\screens\sign\login.dart                                   | Dart       |        205 |          0 |          6 |        211 |
+| d:\myflutterapp\shop_app\lib\screens\sign\on_boarding.dart                             | Dart       |        123 |          0 |          5 |        128 |
+| d:\myflutterapp\shop_app\lib\screens\sign\signUp.dart                                  | Dart       |        196 |          0 |          7 |        203 |
+| d:\myflutterapp\shop_app\lib\sharedpreference\sharedpreference.dart                    | Dart       |         26 |          0 |          7 |         33 |
+| d:\myflutterapp\shop_app\lib\style\theme.dart                                          | Dart       |         49 |          0 |          4 |         53 |
+| d:\myflutterapp\shop_app\lib\widgets\buttonMain.dart                                   | Dart       |         50 |          0 |          3 |         53 |
+| d:\myflutterapp\shop_app\lib\widgets\textFieldGrey.dart                                | Dart       |         88 |          1 |          3 |         92 |
+| d:\myflutterapp\shop_app\pubspec.yaml                                                  | YAML       |         76 |          0 |         16 |         92 |
+| d:\myflutterapp\shop_app\web\index.html                                                | HTML       |         79 |         14 |          6 |         99 |
+| d:\myflutterapp\shop_app\web\manifest.json                                             | JSON       |         23 |          0 |          1 |         24 |
+| Total                                                                                  |            |      3,885 |        245 |        277 |      4,407 |
++----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

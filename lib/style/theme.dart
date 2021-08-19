@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 Color accentColor = Color(0xff5568FE);
-Brightness statusBarIconBrightness = Brightness.dark;
 
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
@@ -17,8 +15,21 @@ ThemeData lightTheme = ThemeData(
     headline6: TextStyle(
       color: Colors.grey[900],
     ),
+    subtitle1: TextStyle(
+      color: Colors.grey[600],
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      letterSpacing: .5,
+    ),
   ),
   brightness: Brightness.light,
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    iconTheme: IconThemeData(),
+    brightness: Brightness.light,
+    actionsIconTheme: IconThemeData(),
+  ),
 );
 
 ThemeData darkTheme = ThemeData(
@@ -33,6 +44,19 @@ ThemeData darkTheme = ThemeData(
     headline6: TextStyle(
       color: Colors.white,
     ),
+    subtitle1: TextStyle(
+      color: Colors.grey[600],
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      letterSpacing: .5,
+    ),
   ),
   brightness: Brightness.dark,
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    iconTheme: IconThemeData(),
+    brightness: Brightness.dark,
+    actionsIconTheme: IconThemeData(),
+  ),
 );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/dio/dioHelper.dart';
+import 'package:shop_app/model/favoritesModel.dart';
 import 'package:shop_app/model/home/addCartModel.dart';
 import 'package:shop_app/model/home/cartModel.dart';
 import 'package:shop_app/model/home/cateogriesModel.dart';
@@ -123,8 +124,7 @@ class HomeCubit extends Cubit<HomeStates> {
         if (!addToCart!.status!) {
           inCart[productId] = !inCart[productId]!;
         } else {
-          checkCart();
-          getCartData();
+          getHomeData();
         }
         emit(AddToCartSuccessState(message: addToCart!.message));
       },
@@ -167,8 +167,10 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  void deleteAllCart() =>
-      cartItems.forEach((product) => changeInCart(product.productData!.id!));
+  void deleteAllCart() {
+    emit(CartChangedLoadingState());
+    cartItems.forEach((product) => changeInCart(product.productData!.id!));
+  }
 
   void changeProductQuantity({
     required int? productId,
@@ -184,7 +186,6 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       getCartData();
-      emit(CartChangedSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(CartChangedErrorState());
@@ -193,9 +194,51 @@ class HomeCubit extends Cubit<HomeStates> {
 
   FaqModel? faqModel;
   void getFAQData() {
-    DioHelper.getData(url: 'faqs').then((value) {
-      faqModel = FaqModel.fromJson(value.data);
-      emit(HomeSuccessState());
+    if (faqModel == null) {
+      emit(HomeLoadingState());
+      DioHelper.getData(url: 'faqs').then((value) {
+        faqModel = FaqModel.fromJson(value.data);
+        emit(HomeSuccessState());
+      }).catchError((error) {
+        print(error.toString());
+      });
+    }
+  }
+
+  void logout() {
+    DioHelper.postData(url: 'logout', data: {}, token: token)
+        .then((value) async {
+      print('logedout');
+      await Sharedpreference.removeData(key: 'token');
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
+  void changeFavorites(int productId) {
+    emit(HomeLoadingState());
+
+    DioHelper.postData(
+      url: 'favorites',
+      data: {'product_id': productId},
+      token: token,
+    ).then((value) {
+      print(value.data);
+
+      getHomeData();
+      getFavorites();
+    }).catchError((error) {
+      print(error.toString());
+    });
+  }
+
+  FavoritesModel? favoritesModel;
+  void getFavorites() {
+    DioHelper.getData(
+      url: 'favorites',
+      token: token,
+    ).then((value) {
+      favoritesModel = FavoritesModel.fromJson(value.data);
     }).catchError((error) {
       print(error.toString());
     });

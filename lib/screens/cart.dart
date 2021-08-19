@@ -11,14 +11,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool cartLoading = false;
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
-        if (state is CartChangedSuccessState)
-          cartLoading = false;
-        else
-          cartLoading = true;
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         return Scaffold(
@@ -75,7 +69,7 @@ class CartScreen extends StatelessWidget {
                               return cartItem(cubit, index);
                             },
                           ),
-                          if (cartLoading)
+                          if (state is CartChangedLoadingState)
                             Container(
                               color: Colors.white.withOpacity(.7),
                               child: Center(
@@ -153,7 +147,7 @@ class CartScreen extends StatelessWidget {
               if (cubit.cartItems.isNotEmpty)
                 Container(
                   width: double.infinity,
-                  // height: 250,
+                  // height: 150,
                   decoration: BoxDecoration(
                     color: Color(0xffE2E6E9),
                     borderRadius: BorderRadius.only(

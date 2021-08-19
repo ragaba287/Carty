@@ -3,6 +3,7 @@ class FaqModel {
   String? message;
   FaqDataModel? data;
 
+  FaqModel();
   FaqModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];

@@ -123,7 +123,6 @@ class SignUpScreen extends StatelessWidget {
                           textEditingController: passwordTextEdit,
                           hintText: 'Password',
                           isobscure: cubit.isobscure,
-                          showSuffix: true,
                           suffixIcon: cubit.suffixEyeIcon,
                           suffixPressed: () => cubit.showPassword(),
                           validator: (value) {

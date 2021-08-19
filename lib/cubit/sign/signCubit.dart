@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/dio/dioHelper.dart';
 import 'package:shop_app/model/sign/loginModel.dart';
 import 'package:shop_app/model/sign/signUpModel.dart';
@@ -21,6 +22,7 @@ class ShopSignCubit extends Cubit<ShopStates> {
       'password': password,
     }).then((value) {
       emit(ShopLoginSuccessState(loginModel: LoginModel.fromJson(value.data)));
+      HomeCubit().getHomeData();
     }).catchError((error) {
       print('error ${error.toString()}');
       emit(ShopLoginErrorState(error.toString()));

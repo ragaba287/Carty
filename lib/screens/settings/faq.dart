@@ -17,7 +17,7 @@ class FAQScreen extends StatelessWidget {
         var theme = Theme.of(context);
 
         return Scaffold(
-          body: state is! HomeSuccessState
+          body: state is HomeSuccessState
               ? Padding(
                   padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
                   child: SingleChildScrollView(

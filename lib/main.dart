@@ -17,7 +17,7 @@ void main() async {
   Widget widgetHome = OnBoardingScreen();
   bool? onBoarding = await Sharedpreference.getData(key: 'onBoarding');
   token = await Sharedpreference.getData(key: 'token');
-  isDarkMode = await Sharedpreference.getData(key: 'isDarkMode');
+  isDarkMode = await Sharedpreference.getData(key: 'isDarkMode') ?? false;
   print(token);
   print(isDarkMode);
   if (onBoarding != null) {
@@ -41,25 +41,29 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (BuildContext context) => ShopSignCubit()),
-          BlocProvider(
-            create: (BuildContext context) => HomeCubit()
-              ..getHomeData()
-              ..getCateogriesData()
-              ..getUserData(),
-          ),
+          BlocProvider(create: (BuildContext context) => HomeCubit()),
+          if (token != null)
+            BlocProvider(
+              create: (BuildContext context) => HomeCubit()
+                ..getHomeData()
+                ..getCateogriesData()
+                ..getUserData()
+                ..getFavorites(),
+            ),
         ],
         child: BlocConsumer<HomeCubit, HomeStates>(
           listener: (context, state) {},
           builder: (context, state) {
             SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
               statusBarIconBrightness:
                   isDarkMode ? Brightness.light : Brightness.dark,
             ));
             return MaterialApp(
-              title: 'Flutter Demo',
+              title: 'Shop App',
               theme: lightTheme,
               darkTheme: darkTheme,
-              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              themeMode: !isDarkMode ? ThemeMode.dark : ThemeMode.light,
               home: widgetHome,
             );
           },
