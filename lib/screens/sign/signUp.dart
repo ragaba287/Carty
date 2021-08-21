@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/sign/signCubit.dart';
 import 'package:shop_app/cubit/sign/signStates.dart';
 import 'package:shop_app/screens/home/home.dart';
@@ -26,7 +27,20 @@ class SignUpScreen extends StatelessWidget {
             print(state.signUpModel!.data!.token);
 
             Sharedpreference.saveData(
-                key: 'token', value: state.signUpModel!.data!.token);
+                    key: 'token', value: state.signUpModel!.data!.token)
+                .then((value) {
+              token = state.signUpModel!.data!.token;
+              BlocProvider.of<HomeCubit>(context)
+                ..getHomeData()
+                ..getCateogriesData()
+                ..getUserData()
+                ..getFavorites();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+                (Route<dynamic> route) => false,
+              );
+            });
 
             Fluttertoast.showToast(
                 msg: state.signUpModel!.message!,
@@ -36,12 +50,6 @@ class SignUpScreen extends StatelessWidget {
                 backgroundColor: theme.accentColor,
                 textColor: Colors.white,
                 fontSize: 16.0);
-
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-              (Route<dynamic> route) => false,
-            );
           } else {
             print(state.signUpModel!.message);
             Fluttertoast.showToast(
@@ -59,136 +67,107 @@ class SignUpScreen extends StatelessWidget {
         var cubit = ShopSignCubit.get(context);
 
         return Scaffold(
-          body: SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Create new account',
-                          style: theme.textTheme.headline5,
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          'Please fill in the form to continue',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: .5,
-                          ),
-                        ),
-                        SizedBox(height: 80),
-                        TextfieldGray(
-                          suffixPressed: () {},
-                          textEditingController: fullNameTextEdit,
-                          hintText: 'Full Name',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                          },
-                        ),
-                        SizedBox(height: 15),
-                        TextfieldGray(
-                          suffixPressed: () {},
-                          textEditingController: emailTextEdit,
-                          hintText: 'Email Address',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                          },
-                        ),
-                        SizedBox(height: 15),
-                        TextfieldGray(
-                          suffixPressed: () {},
-                          textEditingController: phoneTextEdit,
-                          hintText: 'Phone Number',
-                          textInputType: TextInputType.phone,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                          },
-                        ),
-                        SizedBox(height: 15),
-                        TextfieldGray(
-                          textEditingController: passwordTextEdit,
-                          hintText: 'Password',
-                          isobscure: cubit.isobscure,
-                          suffixIcon: cubit.suffixEyeIcon,
-                          suffixPressed: () => cubit.showPassword(),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                          },
-                        ),
-                        SizedBox(height: 80),
-                        state is ShopRegisterLoadingState
-                            ? Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: CircularProgressIndicator(
-                                  color: theme.accentColor,
-                                ),
-                              )
-                            : MainButton(
-                                title: 'Sign Up',
+          body: Center(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 40),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Create new account',
+                          style: theme.textTheme.headline5),
+                      SizedBox(height: 15),
+                      Text('Please fill in the form to continue',
+                          style: theme.textTheme.subtitle1),
+                      SizedBox(height: 80),
+                      TextfieldGray(
+                        hintText: 'Full Name',
+                        textEditingController: fullNameTextEdit,
+                        validator: (value) =>
+                            value.isEmpty ? 'Please enter your Name' : null,
+                      ),
+                      SizedBox(height: 15),
+                      TextfieldGray(
+                        hintText: 'Email Address',
+                        textEditingController: emailTextEdit,
+                        validator: (value) =>
+                            value.isEmpty ? 'please enter your email' : null,
+                      ),
+                      SizedBox(height: 15),
+                      TextfieldGray(
+                        hintText: 'Phone Number',
+                        textEditingController: phoneTextEdit,
+                        textInputType: TextInputType.phone,
+                        validator: (value) =>
+                            value.isEmpty ? 'please enter your Phone' : null,
+                      ),
+                      SizedBox(height: 15),
+                      TextfieldGray(
+                        hintText: 'Password',
+                        textEditingController: passwordTextEdit,
+                        isobscure: cubit.isobscure,
+                        suffixIcon: cubit.suffixEyeIcon,
+                        suffixPressed: () => cubit.showPassword(),
+                        validator: (value) =>
+                            value.isEmpty ? 'please enter your Password' : null,
+                      ),
+                      SizedBox(height: 80),
+                      state is ShopRegisterLoadingState
+                          ? Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: CircularProgressIndicator(
                                 color: theme.accentColor,
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    cubit.userRegister(
-                                      name: fullNameTextEdit.text,
-                                      phone: phoneTextEdit.text,
-                                      email: emailTextEdit.text,
-                                      password: passwordTextEdit.text,
-                                    );
-                                  }
-                                },
                               ),
-                        SizedBox(height: 25),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
+                            )
+                          : MainButton(
+                              title: 'Sign Up',
+                              color: theme.accentColor,
+                              onPressed: () {
+                                if (formKey.currentState!.validate())
+                                  cubit.userRegister(
+                                    name: fullNameTextEdit.text,
+                                    phone: phoneTextEdit.text,
+                                    email: emailTextEdit.text,
+                                    password: passwordTextEdit.text,
+                                  );
+                              },
                             ),
-                          ),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Have an Account?',
-                                  style: TextStyle(
-                                    color: theme.textTheme.headline5?.color,
-                                    fontSize: 16,
-                                    letterSpacing: .5,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' Sign In',
-                                  style: TextStyle(
-                                    color: theme.accentColor,
-                                    fontSize: 16,
-                                    letterSpacing: .5,
-                                  ),
-                                ),
-                              ],
-                            ),
+                      SizedBox(height: 25),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                      ],
-                    ),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Have an Account?',
+                                style: TextStyle(
+                                  color: theme.textTheme.headline5?.color,
+                                  fontSize: 16,
+                                  letterSpacing: .5,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' Sign In',
+                                style: TextStyle(
+                                  color: theme.accentColor,
+                                  fontSize: 16,
+                                  letterSpacing: .5,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -17,6 +17,7 @@ import 'package:shop_app/sharedpreference/sharedpreference.dart';
 
 String? token;
 bool isDarkMode = false;
+bool showHomeBanners = false;
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitState());
@@ -26,6 +27,12 @@ class HomeCubit extends Cubit<HomeStates> {
   void changeThemeMode(bool switchState) {
     isDarkMode = switchState;
     Sharedpreference.saveData(key: 'isDarkMode', value: isDarkMode);
+    emit(HomeSuccessState());
+  }
+
+  void showBanners(bool switchState) {
+    showHomeBanners = switchState;
+    Sharedpreference.saveData(key: 'showHomeBanners', value: showHomeBanners);
     emit(HomeSuccessState());
   }
 
@@ -44,8 +51,10 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeSuccessState());
   }
 
+  PageController pageController = PageController(initialPage: 0);
   void changeBottomNav(int index) {
     currentIndex = index;
+    pageController.jumpToPage(index);
     emit(HomeChangeNavState());
   }
 
@@ -202,6 +211,8 @@ class HomeCubit extends Cubit<HomeStates> {
       }).catchError((error) {
         print(error.toString());
       });
+    } else {
+      emit(HomeSuccessState());
     }
   }
 

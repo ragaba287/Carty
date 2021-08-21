@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/model/favoritesModel.dart';
-import 'package:shop_app/screens/cart.dart';
 import 'package:shop_app/screens/products/product.dart';
 import 'package:shop_app/style/theme.dart';
+import 'package:shop_app/widgets/appbarMain.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -26,71 +26,8 @@ class FavoritesScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          borderRadius: BorderRadius.circular(30),
-                          onTap: () {},
-                          child: CircleAvatar(
-                              radius: 25,
-                              backgroundImage: NetworkImage(
-                                cubit.userModel!.data!.image!,
-                              )),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Hello ${cubit.userName}!',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          // padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.grey[300]!,
-                                width: 1,
-                              )),
-                          child: Stack(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => CartScreen(),
-                                  ));
-                                },
-                                splashRadius: 24,
-                                icon: Icon(
-                                  Icons.shopping_cart_outlined,
-                                  size: 25,
-                                ),
-                              ),
-                              if (cubit.cartIsFull)
-                                Positioned(
-                                  right: 11,
-                                  top: 11,
-                                  child: Container(
-                                    width: 10,
-                                    height: 10,
-                                    decoration: BoxDecoration(
-                                      color: accentColor,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                    child: appbarMain(
+                        cubit: cubit, context: context, withCart: true),
                   ),
                   ListView.builder(
                       shrinkWrap: true,
@@ -124,18 +61,11 @@ class FavoritesScreen extends StatelessWidget {
         });
       },
       child: Container(
+        padding: EdgeInsets.only(right: 20),
         margin: EdgeInsets.symmetric(vertical: 15),
-        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[100]!.withOpacity(.8),
-              blurRadius: 8,
-              spreadRadius: 5,
-            )
-          ],
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
           children: [
@@ -146,16 +76,15 @@ class FavoritesScreen extends StatelessWidget {
                   imageUrl: favoritesModel!
                       .data!.dataFavoritesListModel[index].product!.image!,
                   imageBuilder: (context, imageProvider) => Container(
-                    height: 150,
-                    width: 100,
-                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    height: 140,
+                    width: 120,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      // color: Color(0xffF5F7FB),
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
                         image: imageProvider,
-                        // fit: BoxFit.fitHeight,
+                        fit: BoxFit.scaleDown,
+                        scale: 6,
                       ),
                     ),
                   ),
@@ -197,12 +126,11 @@ class FavoritesScreen extends StatelessWidget {
                   ),
               ],
             ),
-            SizedBox(width: 10),
+            SizedBox(width: 20),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     '${favoritesModel.data!.dataFavoritesListModel[index].product!.name!}',
@@ -210,17 +138,20 @@ class FavoritesScreen extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.headline5!.copyWith(
                       fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      height: 1.4,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         '\$ ${favoritesModel.data!.dataFavoritesListModel[index].product!.price!.toString()}',
                         style: TextStyle(
                           color: accentColor,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w600,
                           fontSize: 17,
                         ),
                       ),

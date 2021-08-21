@@ -1,4 +1,4 @@
-import 'package:shop_app/model/sign/loginModel.dart';
+import 'package:shop_app/model/sign/signInModel.dart';
 import 'package:shop_app/model/sign/signUpModel.dart';
 
 abstract class ShopStates {}

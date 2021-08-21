@@ -6,12 +6,14 @@ import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/style/theme.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    PageController _pageController = PageController(initialPage: 0);
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is HomeInitState) {
+          print('is HomeLoadingState');
+        }
+      },
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         var theme = Theme.of(context);
@@ -22,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                   state is AddToCartSuccessState ||
                   state is CartChangedSuccessState
               ? PageView(
-                  controller: _pageController,
+                  controller: cubit.pageController,
                   children: cubit.bottomScreens,
                   onPageChanged: (index) => cubit.changeBottomNav(index),
                 )
@@ -34,11 +36,10 @@ class HomeScreen extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: BottomNavyBar(
-              itemCornerRadius: 12,
+              itemCornerRadius: 18,
               curve: Curves.easeInCubic,
               onItemSelected: (index) {
                 cubit.changeBottomNav(index);
-                _pageController.jumpToPage(index);
               },
               selectedIndex: cubit.currentIndex,
               backgroundColor: Colors.transparent,

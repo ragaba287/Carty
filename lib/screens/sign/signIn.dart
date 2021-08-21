@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/cubit/home/homeCubit.dart';
+import 'package:shop_app/style/theme.dart';
 import '../../cubit/sign/signCubit.dart';
 import '../../cubit/sign/signStates.dart';
 import '../../screens/home/home.dart';
@@ -20,11 +22,21 @@ class LoginScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is ShopLoginSuccessState) {
           if (state.loginModel!.status!) {
-            print(state.loginModel!.message);
-            print(state.loginModel!.data!.token);
-
             Sharedpreference.saveData(
-                key: 'token', value: state.loginModel!.data!.token);
+                    key: 'token', value: state.loginModel!.data!.token)
+                .then((value) async {
+              token = state.loginModel!.data!.token;
+              BlocProvider.of<HomeCubit>(context)
+                ..getHomeData()
+                ..getCateogriesData()
+                ..getUserData()
+                ..getFavorites();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+                (Route<dynamic> route) => false,
+              );
+            });
 
             Fluttertoast.showToast(
                 msg: state.loginModel!.message!,
@@ -34,12 +46,6 @@ class LoginScreen extends StatelessWidget {
                 backgroundColor: theme.accentColor,
                 textColor: Colors.white,
                 fontSize: 16.0);
-
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-              (Route<dynamic> route) => false,
-            );
           } else {
             print(state.loginModel!.message);
             Fluttertoast.showToast(
@@ -55,6 +61,7 @@ class LoginScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = ShopSignCubit.get(context);
+
         return Scaffold(
           body: Center(
             child: SingleChildScrollView(
@@ -73,9 +80,8 @@ class LoginScreen extends StatelessWidget {
                       TextfieldGray(
                         hintText: 'Email Address',
                         textEditingController: usernameTextEdit,
-                        // validator: (value) {
-                        //   if (value.isEmpty) return 'Email can\'t be empty';
-                        // },
+                        validator: (value) =>
+                            value.isEmpty ? 'Email can\'t be empty' : null,
                       ),
                       SizedBox(height: 15),
                       TextfieldGray(
@@ -84,34 +90,29 @@ class LoginScreen extends StatelessWidget {
                         isobscure: cubit.isobscure,
                         suffixIcon: cubit.suffixEyeIcon,
                         suffixPressed: () => cubit.showPassword(),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Password can\'t be empty';
-                          }
-                        },
+                        validator: (value) =>
+                            value.isEmpty ? 'Password can\'t be empty' : null,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                            ),
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: .5,
-                              ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
                             ),
                           ),
-                        ],
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: .5,
+                            ),
+                          ),
+                        ),
                       ),
                       SizedBox(height: 80),
                       state is ShopLoginLoadingState
@@ -125,14 +126,13 @@ class LoginScreen extends StatelessWidget {
                               title: 'Sign In',
                               color: Theme.of(context).accentColor,
                               onPressed: () {
-                                if (formKey.currentState!.validate()) {
+                                if (formKey.currentState!.validate())
                                   cubit.userLogin(
                                     email: usernameTextEdit.text,
                                     password: passwordTextEdit.text,
                                   );
-                                } else {
+                                else
                                   print('Form is invalid');
-                                }
                               },
                             ),
                       SizedBox(height: 15),
@@ -145,10 +145,8 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpScreen()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SignUpScreen()));
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -170,7 +168,7 @@ class LoginScreen extends StatelessWidget {
                               TextSpan(
                                 text: ' Sign Up',
                                 style: TextStyle(
-                                  color: Theme.of(context).accentColor,
+                                  color: accentColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                 ),

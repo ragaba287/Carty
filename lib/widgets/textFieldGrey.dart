@@ -33,7 +33,7 @@ class TextfieldGray extends StatelessWidget {
 
     //Main Text Field border
     OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(15),
       borderSide: BorderSide(color: color!),
     );
 
@@ -56,7 +56,7 @@ class TextfieldGray extends StatelessWidget {
           letterSpacing: 1,
           fontWeight: FontWeight.w400,
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 35, vertical: 28),
+        contentPadding: EdgeInsets.symmetric(horizontal: 35, vertical: 25),
         filled: true,
         fillColor: color,
         border: InputBorder.none,

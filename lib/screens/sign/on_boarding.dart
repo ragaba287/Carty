@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:shop_app/screens/sign/login.dart';
+import 'package:shop_app/screens/sign/signIn.dart';
 import 'package:shop_app/sharedpreference/sharedpreference.dart';
 
 class OnBoardingScreen extends StatelessWidget {

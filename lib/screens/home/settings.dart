@@ -5,7 +5,7 @@ import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/screens/cart.dart';
 import 'package:shop_app/screens/settings/faq.dart';
-import 'package:shop_app/screens/sign/login.dart';
+import 'package:shop_app/screens/sign/signIn.dart';
 import 'package:shop_app/style/theme.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -73,6 +73,17 @@ class SettingsScreen extends StatelessWidget {
                   isSwitch: true,
                   switchFunction: (value) => cubit.changeThemeMode(value),
                   iconColor: Colors.purple[900]!,
+                ),
+                SizedBox(height: 15),
+                settingButton(
+                  context: context,
+                  onTap: () {},
+                  title: 'Enable Banners',
+                  icon: Icons.featured_video_outlined,
+                  switchState: showHomeBanners,
+                  isSwitch: true,
+                  switchFunction: (value) => cubit.showBanners(value),
+                  iconColor: Colors.green[900]!,
                 ),
                 SizedBox(height: 15),
                 settingButton(
@@ -172,7 +183,7 @@ class SettingsScreen extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context!).textTheme.subtitle2!.copyWith(
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w700,
                     fontSize: 16,
                   ),
             ),

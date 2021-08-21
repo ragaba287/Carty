@@ -6,6 +6,7 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   accentColor: accentColor,
   fontFamily: 'exo2',
+  cardColor: Colors.white,
   textTheme: TextTheme(
     headline5: TextStyle(
       color: Colors.black,
@@ -35,6 +36,8 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Color(0xff181920),
   accentColor: accentColor,
+  fontFamily: 'exo2',
+  cardColor: Color(0xff252A34),
   textTheme: TextTheme(
     headline5: TextStyle(
       color: Colors.white,

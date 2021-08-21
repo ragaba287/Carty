@@ -5,6 +5,7 @@ import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/model/home/cateogriesModel.dart';
 import 'package:shop_app/style/theme.dart';
+import 'package:shop_app/widgets/appbarMain.dart';
 
 class CateogriesScreen extends StatelessWidget {
   const CateogriesScreen({Key? key}) : super(key: key);
@@ -26,31 +27,12 @@ class CateogriesScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage:
-                            NetworkImage(cubit.userModel!.data!.image!),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Hello ${cubit.userName}!',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
+                  child: appbarMain(
+                      cubit: cubit, context: context, withCart: false),
                 ),
                 Text(
                   'All',
-                  style: TextStyle(
-                    fontSize: 28,
-                  ),
+                  style: TextStyle(fontSize: 28),
                 ),
                 SizedBox(height: 5),
                 Text(
@@ -65,10 +47,8 @@ class CateogriesScreen extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: cateogriesModel.length,
                   physics: BouncingScrollPhysics(),
-                  // padding: EdgeInsets.all(20),
                   itemBuilder: (context, index) {
-                    //either cateogryItem1 or cateogryItem2
-                    return cateogryItem2(cateogriesModel[index]);
+                    return cateogryItem(cateogriesModel[index]);
                   },
                 ),
               ],
@@ -79,119 +59,57 @@ class CateogriesScreen extends StatelessWidget {
     );
   }
 
-  Widget cateogryItem2(DataModel cateogriesModel) {
+  Widget cateogryItem(DataModel cateogriesModel) {
     return InkWell(
       onTap: () {},
       borderRadius: BorderRadius.circular(18),
       child: Row(
         children: [
-          CachedNetworkImage(
-            imageUrl: cateogriesModel.image!,
-            imageBuilder: (context, imageProvider) => Container(
-              height: 80,
-              width: 80,
-              margin: EdgeInsets.symmetric(vertical: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[100]!.withOpacity(.8),
-                    blurRadius: 8,
-                    spreadRadius: 5,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(18),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(
-                    Colors.black.withOpacity(.2),
-                    BlendMode.srcOver,
+          Container(
+            height: 80,
+            width: 80,
+            margin: EdgeInsets.symmetric(vertical: 18),
+            child: CachedNetworkImage(
+              imageUrl: cateogriesModel.image!,
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(18),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                    colorFilter: new ColorFilter.mode(
+                      Colors.black.withOpacity(.1),
+                      BlendMode.srcOver,
+                    ),
                   ),
                 ),
               ),
-            ),
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                Center(
-              child: CircularProgressIndicator(
-                value: downloadProgress.progress,
-                color: Colors.grey,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                child: LinearProgressIndicator(
+                  value: downloadProgress.progress,
+                  color: accentColor,
+                ),
+              ),
+              errorWidget: (context, url, error) => Icon(
+                Icons.error,
+                color: Colors.red,
               ),
             ),
-            errorWidget: (context, url, error) => Icon(
-              Icons.error,
-              color: Colors.red,
-            ),
           ),
-          SizedBox(width: 15),
+          SizedBox(width: 20),
           Text(
             cateogriesModel.name!,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
             ),
           ),
           Spacer(),
           Icon(Icons.arrow_forward_ios_rounded),
         ],
       ),
-    );
-  }
-
-  Widget cateogryItem(DataModel cateogriesModel) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        CachedNetworkImage(
-          imageUrl: cateogriesModel.image!,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 180,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[100]!.withOpacity(.8),
-                  blurRadius: 8,
-                  spreadRadius: 5,
-                ),
-              ],
-              borderRadius: BorderRadius.circular(25),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(
-                  Colors.black.withOpacity(.5),
-                  BlendMode.srcOver,
-                ),
-              ),
-            ),
-          ),
-          progressIndicatorBuilder: (context, url, downloadProgress) => Center(
-            child: CircularProgressIndicator(
-              value: downloadProgress.progress,
-              color: Colors.grey,
-            ),
-          ),
-          errorWidget: (context, url, error) => Icon(
-            Icons.error,
-            color: Colors.red,
-          ),
-        ),
-        Positioned(
-          bottom: 20,
-          child: Text(
-            cateogriesModel.name!,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
