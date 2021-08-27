@@ -5,6 +5,7 @@ import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/screens/cart.dart';
 import 'package:shop_app/style/theme.dart';
+import 'package:shop_app/widgets/appbarMain.dart';
 
 class ProductScreen extends StatelessWidget {
   final int? index;
@@ -19,6 +20,7 @@ class ProductScreen extends StatelessWidget {
         bool? isInFavorites =
             cubit.homeModel!.data!.products[index!].infavorites;
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Stack(
             children: [
               Column(
@@ -55,57 +57,11 @@ class ProductScreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(25, 70, 25, 10),
-                child: Row(
-                  children: [
-                    InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios_outlined),
-                    ),
-                    Spacer(),
-                    Container(
-                      // padding: EdgeInsets.all(7),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey[300]!,
-                            width: 1,
-                          )),
-                      child: Stack(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CartScreen(),
-                              ));
-                            },
-                            splashRadius: 24,
-                            icon: Icon(
-                              Icons.shopping_cart_outlined,
-                              size: 25,
-                            ),
-                          ),
-                          if (cubit.cartIsFull)
-                            Positioned(
-                              right: 11,
-                              top: 11,
-                              child: Container(
-                                width: 10,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  color: accentColor,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    )
-                  ],
+                child: appbarMain(
+                  cubit: cubit,
+                  context: context,
+                  withCart: true,
+                  isBackButton: true,
                 ),
               ),
               if (cubit.homeModel!.data!.products[index!].discount != 0)

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/cubit/home/homeCubit.dart';
@@ -6,6 +5,7 @@ import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/model/favoritesModel.dart';
 import 'package:shop_app/screens/products/product.dart';
 import 'package:shop_app/style/theme.dart';
+import 'package:shop_app/widgets/NetImage.dart';
 import 'package:shop_app/widgets/appbarMain.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -72,33 +72,12 @@ class FavoritesScreen extends StatelessWidget {
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                CachedNetworkImage(
+                netImage(
                   imageUrl: favoritesModel!
                       .data!.dataFavoritesListModel[index].product!.image!,
-                  imageBuilder: (context, imageProvider) => Container(
-                    height: 140,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.scaleDown,
-                        scale: 6,
-                      ),
-                    ),
-                  ),
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                      value: downloadProgress.progress,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
+                  height: 140,
+                  width: 120,
+                  scale: 6,
                 ),
                 if (favoritesModel.data!.dataFavoritesListModel[index].product!
                         .discount! !=

@@ -36,6 +36,12 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeSuccessState());
   }
 
+  bool autoPlayBanners = true;
+  void bannerPlay() {
+    autoPlayBanners = !autoPlayBanners;
+    emit(HomeSuccessState());
+  }
+
   int currentIndex = 0;
 
   List<Widget> bottomScreens = [
@@ -44,12 +50,6 @@ class HomeCubit extends Cubit<HomeStates> {
     FavoritesScreen(),
     SettingsScreen(),
   ];
-
-  bool autoPlayBanners = true;
-  void bannerPlay() {
-    autoPlayBanners = !autoPlayBanners;
-    emit(HomeSuccessState());
-  }
 
   PageController pageController = PageController(initialPage: 0);
   void changeBottomNav(int index) {
@@ -92,6 +92,7 @@ class HomeCubit extends Cubit<HomeStates> {
       });
       checkCart();
       getCartData();
+      getCateogriesData();
 
       emit(HomeSuccessState());
     }).catchError((error) {
@@ -104,12 +105,9 @@ class HomeCubit extends Cubit<HomeStates> {
   void getCateogriesData() {
     DioHelper.getData(
       url: 'categories',
-      token: token,
     ).then((value) {
       cateogriesModel = CateogriesModel.fromJson(value.data);
-      emit(CateogriesSuccessState());
     }).catchError((error) {
-      emit(CateogriesErrorState());
       print(error.toString());
     });
   }
@@ -235,7 +233,6 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       print(value.data);
-
       getHomeData();
       getFavorites();
     }).catchError((error) {

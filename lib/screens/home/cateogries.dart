@@ -5,6 +5,7 @@ import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/model/home/cateogriesModel.dart';
 import 'package:shop_app/style/theme.dart';
+import 'package:shop_app/widgets/NetImage.dart';
 import 'package:shop_app/widgets/appbarMain.dart';
 
 class CateogriesScreen extends StatelessWidget {
@@ -65,40 +66,12 @@ class CateogriesScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(18),
       child: Row(
         children: [
-          Container(
+          netImage(
+            imageUrl: cateogriesModel.image!,
             height: 80,
             width: 80,
-            margin: EdgeInsets.symmetric(vertical: 18),
-            child: CachedNetworkImage(
-              imageUrl: cateogriesModel.image!,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(18),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(.1),
-                      BlendMode.srcOver,
-                    ),
-                  ),
-                ),
-              ),
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                child: LinearProgressIndicator(
-                  value: downloadProgress.progress,
-                  color: accentColor,
-                ),
-              ),
-              errorWidget: (context, url, error) => Icon(
-                Icons.error,
-                color: Colors.red,
-              ),
-            ),
+            margin: EdgeInsets.fromLTRB(0, 18, 20, 18),
           ),
-          SizedBox(width: 20),
           Text(
             cateogriesModel.name!,
             style: TextStyle(

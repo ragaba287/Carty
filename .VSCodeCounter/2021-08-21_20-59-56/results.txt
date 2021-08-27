@@ -1,0 +1,85 @@
+Date : 2021-08-21 20:59:56
+Directory : d:\myflutterapp\shop_app
+Total : 39 files,  3480 codes, 26 comments, 235 blanks, all 3741 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         33 |      3,399 |         26 |        219 |      3,644 |
+| YAML     |          1 |         76 |          0 |         16 |         92 |
+| XML      |          5 |          5 |          0 |          0 |          5 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                   |         39 |      3,480 |         26 |        235 |      3,741 |
+| assets                                                              |          5 |          5 |          0 |          0 |          5 |
+| assets\home                                                         |          1 |          1 |          0 |          0 |          1 |
+| assets\onBoarding                                                   |          3 |          3 |          0 |          0 |          3 |
+| lib                                                                 |         33 |      3,399 |         26 |        219 |      3,644 |
+| lib\cubit                                                           |          5 |        344 |          2 |         69 |        415 |
+| lib\cubit\home                                                      |          2 |        244 |          0 |         45 |        289 |
+| lib\cubit\sign                                                      |          2 |         77 |          2 |         19 |         98 |
+| lib\dio                                                             |          1 |         69 |          0 |          9 |         78 |
+| lib\model                                                           |          8 |        281 |          0 |         47 |        328 |
+| lib\model\home                                                      |          4 |        146 |          0 |         25 |        171 |
+| lib\model\settings                                                  |          1 |         28 |          0 |          6 |         34 |
+| lib\model\sign                                                      |          2 |         56 |          0 |          8 |         64 |
+| lib\screens                                                         |         12 |      2,343 |         15 |         58 |      2,416 |
+| lib\screens\home                                                    |          5 |        999 |          9 |         25 |      1,033 |
+| lib\screens\products                                                |          1 |        312 |          4 |          5 |        321 |
+| lib\screens\settings                                                |          1 |        117 |          0 |          5 |        122 |
+| lib\screens\sign                                                    |          3 |        485 |          0 |         15 |        500 |
+| lib\sharedpreference                                                |          1 |         26 |          0 |          7 |         33 |
+| lib\style                                                           |          1 |         62 |          0 |          4 |         66 |
+| lib\widgets                                                         |          3 |        195 |          4 |         13 |        212 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                            | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\myflutterapp\shop_app\assets\google-icon.svg                     | XML      |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\home\empty_cart.svg                 | XML      |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\onBoarding\onBoard1.svg             | XML      |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\onBoarding\onBoard2.svg             | XML      |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\assets\onBoarding\onBoard3.svg             | XML      |          1 |          0 |          0 |          1 |
+| d:\myflutterapp\shop_app\lib\cubit\cubitObserver.dart               | Dart     |         23 |          0 |          5 |         28 |
+| d:\myflutterapp\shop_app\lib\cubit\home\homeCubit.dart              | Dart     |        227 |          0 |         31 |        258 |
+| d:\myflutterapp\shop_app\lib\cubit\home\homeStates.dart             | Dart     |         17 |          0 |         14 |         31 |
+| d:\myflutterapp\shop_app\lib\cubit\sign\signCubit.dart              | Dart     |         53 |          0 |          8 |         61 |
+| d:\myflutterapp\shop_app\lib\cubit\sign\signStates.dart             | Dart     |         24 |          2 |         11 |         37 |
+| d:\myflutterapp\shop_app\lib\dio\dioHelper.dart                     | Dart     |         69 |          0 |          9 |         78 |
+| d:\myflutterapp\shop_app\lib\generated_plugin_registrant.dart       | Dart     |          8 |          5 |          5 |         18 |
+| d:\myflutterapp\shop_app\lib\main.dart                              | Dart     |         71 |          0 |          7 |         78 |
+| d:\myflutterapp\shop_app\lib\model\favoritesModel.dart              | Dart     |         51 |          0 |          8 |         59 |
+| d:\myflutterapp\shop_app\lib\model\home\addCartModel.dart           | Dart     |          8 |          0 |          2 |         10 |
+| d:\myflutterapp\shop_app\lib\model\home\cartModel.dart              | Dart     |         51 |          0 |          7 |         58 |
+| d:\myflutterapp\shop_app\lib\model\home\cateogriesModel.dart        | Dart     |         31 |          0 |          6 |         37 |
+| d:\myflutterapp\shop_app\lib\model\home\homeModel.dart              | Dart     |         56 |          0 |         10 |         66 |
+| d:\myflutterapp\shop_app\lib\model\settings\faqModel.dart           | Dart     |         28 |          0 |          6 |         34 |
+| d:\myflutterapp\shop_app\lib\model\sign\signInModel.dart            | Dart     |         30 |          0 |          4 |         34 |
+| d:\myflutterapp\shop_app\lib\model\sign\signUpModel.dart            | Dart     |         26 |          0 |          4 |         30 |
+| d:\myflutterapp\shop_app\lib\screens\cart.dart                      | Dart     |        419 |          2 |          5 |        426 |
+| d:\myflutterapp\shop_app\lib\screens\home\cateogries.dart           | Dart     |        111 |          0 |          5 |        116 |
+| d:\myflutterapp\shop_app\lib\screens\home\favorites.dart            | Dart     |        186 |          1 |          4 |        191 |
+| d:\myflutterapp\shop_app\lib\screens\home\home.dart                 | Dart     |         77 |          0 |          3 |         80 |
+| d:\myflutterapp\shop_app\lib\screens\home\products.dart             | Dart     |        427 |          7 |          8 |        442 |
+| d:\myflutterapp\shop_app\lib\screens\home\settings.dart             | Dart     |        198 |          1 |          5 |        204 |
+| d:\myflutterapp\shop_app\lib\screens\products\product.dart          | Dart     |        312 |          4 |          5 |        321 |
+| d:\myflutterapp\shop_app\lib\screens\search.dart                    | Dart     |         11 |          0 |          3 |         14 |
+| d:\myflutterapp\shop_app\lib\screens\settings\faq.dart              | Dart     |        117 |          0 |          5 |        122 |
+| d:\myflutterapp\shop_app\lib\screens\sign\on_boarding.dart          | Dart     |        123 |          0 |          5 |        128 |
+| d:\myflutterapp\shop_app\lib\screens\sign\signIn.dart               | Dart     |        187 |          0 |          4 |        191 |
+| d:\myflutterapp\shop_app\lib\screens\sign\signUp.dart               | Dart     |        175 |          0 |          6 |        181 |
+| d:\myflutterapp\shop_app\lib\sharedpreference\sharedpreference.dart | Dart     |         26 |          0 |          7 |         33 |
+| d:\myflutterapp\shop_app\lib\style\theme.dart                       | Dart     |         62 |          0 |          4 |         66 |
+| d:\myflutterapp\shop_app\lib\widgets\appbarMain.dart                | Dart     |         74 |          0 |          2 |         76 |
+| d:\myflutterapp\shop_app\lib\widgets\buttonMain.dart                | Dart     |         50 |          0 |          3 |         53 |
+| d:\myflutterapp\shop_app\lib\widgets\textFieldGrey.dart             | Dart     |         71 |          4 |          8 |         83 |
+| d:\myflutterapp\shop_app\pubspec.yaml                               | YAML     |         76 |          0 |         16 |         92 |
+| Total                                                               |          |      3,480 |         26 |        235 |      3,741 |
++---------------------------------------------------------------------+----------+------------+------------+------------+------------+

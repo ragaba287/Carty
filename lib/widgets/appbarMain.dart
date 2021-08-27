@@ -5,30 +5,41 @@ import 'package:shop_app/style/theme.dart';
 Widget appbarMain({
   cubit,
   BuildContext? context,
-  bool? withCart = false,
+  bool withCart = false,
+  bool isBackButton = false,
 }) {
   return Row(
     children: [
-      InkWell(
-        borderRadius: BorderRadius.circular(30),
-        onTap: () {},
-        child: CircleAvatar(
-            radius: 25,
-            backgroundImage: NetworkImage(
-              cubit.userModel!.data!.image!,
-            )),
-      ),
-      SizedBox(width: 15),
-      Text(
-        'Hello ${cubit.userName}!',
-        style: TextStyle(
-          color: Theme.of(context!).textTheme.headline6!.color,
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
+      isBackButton
+          ? InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () => Navigator.pop(context!),
+              child: Icon(Icons.arrow_back_ios_outlined),
+            )
+          : Row(
+              children: [
+                InkWell(
+                  borderRadius: BorderRadius.circular(30),
+                  onTap: () {},
+                  child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: NetworkImage(
+                        cubit.userModel!.data!.image!,
+                      )),
+                ),
+                SizedBox(width: 15),
+                Text(
+                  'Hello ${cubit.userName}!',
+                  style: TextStyle(
+                    color: Theme.of(context!).textTheme.headline6!.color,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
       Spacer(),
-      if (withCart!)
+      if (withCart)
         Container(
           decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -40,7 +51,7 @@ Widget appbarMain({
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context!).push(MaterialPageRoute(
                     builder: (context) => CartScreen(),
                   ));
                 },
@@ -61,7 +72,7 @@ Widget appbarMain({
                       color: accentColor,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context!).scaffoldBackgroundColor,
                         width: 1,
                       ),
                     ),

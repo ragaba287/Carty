@@ -9,14 +9,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
-        if (state is HomeInitState) {
-          print('is HomeLoadingState');
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        var theme = Theme.of(context);
 
         return Scaffold(
           body: state is HomeSuccessState ||

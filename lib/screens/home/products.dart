@@ -1,18 +1,16 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shop_app/cubit/home/homeCubit.dart';
 import 'package:shop_app/cubit/home/homeStates.dart';
 import 'package:shop_app/model/home/cateogriesModel.dart';
 import 'package:shop_app/model/home/homeModel.dart';
-import 'package:shop_app/screens/cart.dart';
 import 'package:shop_app/screens/products/product.dart';
-import 'package:shop_app/screens/search.dart';
 import 'package:shop_app/style/theme.dart';
+import 'package:shop_app/widgets/NetImage.dart';
 import 'package:shop_app/widgets/appbarMain.dart';
-import 'package:shop_app/widgets/textFieldGrey.dart';
+import 'package:shop_app/widgets/bannerSlider.dart';
 
 class ProductsScreen extends StatelessWidget {
   @override
@@ -33,22 +31,18 @@ class ProductsScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         var cateogriesModel = cubit.cateogriesModel!.data!.data;
-        TextEditingController searchTextEditingController =
-            TextEditingController();
         ThemeData theme = Theme.of(context);
         return SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //user image , name and bell
               Padding(
-                padding: EdgeInsets.fromLTRB(25, 70, 25, 0),
-                child:
-                    appbarMain(cubit: cubit, context: context, withCart: true),
-              ),
+                  padding: EdgeInsets.fromLTRB(25, 70, 25, 0),
+                  child: appbarMain(
+                      cubit: cubit, context: context, withCart: true)),
 
-              //Big Text and search row
+              // Big Text and search row
               Padding(
                 padding: EdgeInsets.fromLTRB(25, 40, 20, 20),
                 child: Column(
@@ -73,8 +67,130 @@ class ProductsScreen extends StatelessWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: TextfieldGray(
-                            textEditingController: searchTextEditingController,
+                          child: TypeAheadField(
+                            hideSuggestionsOnKeyboardHide: true,
+                            textFieldConfiguration: TextFieldConfiguration(
+                                cursorColor: accentColor,
+                                style: TextStyle(
+                                  color: theme.brightness == Brightness.dark
+                                      ? Color(0xffE9EAEF)
+                                      : Colors.grey[900],
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: 'Search',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 17,
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 35, vertical: 25),
+                                  filled: true,
+                                  fillColor: theme.brightness == Brightness.dark
+                                      ? Color(0xff252A34)
+                                      : Colors.grey[300],
+                                  border: InputBorder.none,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                        color:
+                                            theme.brightness == Brightness.dark
+                                                ? Color(0xff252A34)
+                                                : Colors.grey[300]!),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                        color:
+                                            theme.brightness == Brightness.dark
+                                                ? Color(0xff252A34)
+                                                : Colors.grey[300]!),
+                                  ),
+                                )),
+                            noItemsFoundBuilder: (_) {
+                              return Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    'No Products Found',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      height: 1.4,
+                                    ),
+                                  ));
+                            },
+                            itemBuilder:
+                                (BuildContext context, ProductsModel itemData) {
+                              return Container(
+                                height: 100,
+                                width: 100,
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: theme.cardColor,
+                                ),
+                                child: Row(
+                                  children: [
+                                    netImage(
+                                      imageUrl: itemData.image!,
+                                      height: 80,
+                                      width: 80,
+                                      scale: 6,
+                                    ),
+                                    SizedBox(width: 20),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            itemData.name!,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: theme.textTheme.headline5!
+                                                .copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              height: 1.4,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            '${itemData.price} \$',
+                                            style: TextStyle(
+                                              color: accentColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            onSuggestionSelected: (ProductsModel suggestion) {
+                              cubit.homeModel!.data!.products
+                                  .forEach((element) {
+                                if (element.id == suggestion.id) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ProductScreen(cubit
+                                          .homeModel!.data!.products
+                                          .indexOf(element))));
+                                }
+                              });
+                            },
+                            suggestionsCallback: (String pattern) async {
+                              return cubit.homeModel!.data!.products.where(
+                                  (element) => element.name!
+                                      .toLowerCase()
+                                      .contains(pattern.toLowerCase()));
+                            },
                           ),
                         ),
                         SizedBox(width: 20),
@@ -96,96 +212,13 @@ class ProductsScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    if (showHomeBanners) bannerCarouselSlider(cubit),
                   ],
                 ),
               ),
-              if (showHomeBanners)
-                Stack(
-                  children: [
-                    CarouselSlider(
-                      items: cubit.homeModel!.data!.banners
-                          .map(
-                            (banner) => CachedNetworkImage(
-                              imageUrl: banner.image!,
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 0),
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 40),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  // color: Color(0xffF5F7FB),
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
-                                    colorFilter: new ColorFilter.mode(
-                                      Colors.black.withOpacity(.0),
-                                      BlendMode.srcATop,
-                                    ),
-                                    // fit: BoxFit.fitHeight,
-                                  ),
-                                ),
-                              ),
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Center(
-                                child: CircularProgressIndicator(
-                                  value: downloadProgress.progress,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Icon(
-                                Icons.error,
-                                color: Colors.red,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      options: CarouselOptions(
-                        initialPage: 0,
-                        scrollPhysics: BouncingScrollPhysics(),
-                        viewportFraction: 1,
-                        height: 280,
-                        autoPlay: cubit.autoPlayBanners,
-                        autoPlayInterval: Duration(seconds: 4),
-                        autoPlayAnimationDuration: Duration(seconds: 2),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        scrollDirection: Axis.horizontal,
-                        reverse: false,
-                      ),
-                    ),
-                    Positioned(
-                      right: 30,
-                      bottom: 50,
-                      child: Container(
-                        width: 35,
-                        height: 35,
-                        padding: EdgeInsets.all(0),
-                        margin: EdgeInsets.all(0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300]!.withOpacity(.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          splashRadius: 30,
-                          iconSize: 25,
-                          onPressed: () => cubit.bannerPlay(),
-                          icon: cubit.autoPlayBanners
-                              ? Icon(Icons.pause)
-                              : Icon(Icons.play_arrow),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
 
-              //cateogries slider
+              // cateogries slider
               Padding(
                 padding: EdgeInsets.fromLTRB(25, 0, 20, 10),
                 child: Row(
@@ -219,7 +252,6 @@ class ProductsScreen extends StatelessWidget {
                   itemCount: cateogriesModel.length,
                   itemBuilder: (BuildContext context, int index) {
                     List<DataModel> modifiedCateogries = [];
-
                     modifiedCateogries
                         .add(DataModel(id: 1, name: 'All', image: ''));
                     modifiedCateogries.addAll(cateogriesModel);
@@ -324,36 +356,7 @@ class ProductsScreen extends StatelessWidget {
               Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    height: 160,
-                    child: CachedNetworkImage(
-                      imageUrl: productModel.image!,
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                      ),
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Center(
-                        child: LinearProgressIndicator(
-                          value: downloadProgress.progress,
-                          color: accentColor,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
+                  netImage(imageUrl: productModel.image!),
                   if (productModel.discount! != 0)
                     Positioned(
                       bottom: 15,

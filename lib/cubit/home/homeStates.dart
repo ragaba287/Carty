@@ -12,10 +12,6 @@ class HomeSuccessState extends HomeStates {}
 
 class HomeErrorState extends HomeStates {}
 
-class CateogriesSuccessState extends HomeStates {}
-
-class CateogriesErrorState extends HomeStates {}
-
 class AddToCartSuccessState extends HomeStates {
   final String? message;
   AddToCartSuccessState({this.message});
