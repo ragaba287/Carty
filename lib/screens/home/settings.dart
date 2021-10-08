@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/screens/cart.dart';
-import 'package:shop_app/screens/settings/faq.dart';
-import 'package:shop_app/screens/sign/signIn.dart';
-import 'package:shop_app/style/theme.dart';
+import 'package:carty/cubit/home/homeCubit.dart';
+import 'package:carty/cubit/home/homeStates.dart';
+import 'package:carty/screens/cart.dart';
+import 'package:carty/screens/settings/faq.dart';
+import 'package:carty/screens/sign/signIn.dart';
+import 'package:carty/style/theme.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);

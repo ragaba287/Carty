@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit/cubitObserver.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/cubit/sign/signCubit.dart';
-import 'package:shop_app/screens/home/home.dart';
-import 'package:shop_app/screens/sign/signIn.dart';
-import 'package:shop_app/sharedpreference/sharedpreference.dart';
-import 'package:shop_app/style/theme.dart';
+import '/cubit/cubitObserver.dart';
+import '/cubit/home/homeCubit.dart';
+import '/cubit/home/homeStates.dart';
+import '/cubit/sign/signCubit.dart';
+import '/screens/home/home.dart';
+import '/screens/sign/signIn.dart';
+import '/utils/sharedpreference.dart';
+import '/style/theme.dart';
 import 'screens/sign/on_boarding.dart';
 
 void main() async {
@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
                   isDarkMode ? Brightness.light : Brightness.dark,
             ));
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'Shop App',
               theme: lightTheme,
               darkTheme: darkTheme,

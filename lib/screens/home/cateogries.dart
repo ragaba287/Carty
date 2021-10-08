@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/model/home/cateogriesModel.dart';
-import 'package:shop_app/style/theme.dart';
-import 'package:shop_app/widgets/NetImage.dart';
-import 'package:shop_app/widgets/appbarMain.dart';
+import 'package:carty/cubit/home/homeCubit.dart';
+import 'package:carty/cubit/home/homeStates.dart';
+import 'package:carty/model/home/cateogriesModel.dart';
+import 'package:carty/style/theme.dart';
+import 'package:carty/widgets/NetImage.dart';
+import 'package:carty/widgets/appbarMain.dart';
 
 class CateogriesScreen extends StatelessWidget {
   const CateogriesScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
-import 'package:shop_app/model/sign/signInModel.dart';
-import 'package:shop_app/model/sign/signUpModel.dart';
+import 'package:carty/model/sign/signInModel.dart';
+import 'package:carty/model/sign/signUpModel.dart';
 
 abstract class ShopStates {}
 

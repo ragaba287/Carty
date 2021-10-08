@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/cart.dart';
-import 'package:shop_app/style/theme.dart';
+import 'package:carty/screens/cart.dart';
+import 'package:carty/style/theme.dart';
 
 Widget appbarMain({
   cubit,

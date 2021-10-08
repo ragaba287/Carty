@@ -1,16 +1,17 @@
+import 'package:carty/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/model/home/cateogriesModel.dart';
-import 'package:shop_app/model/home/homeModel.dart';
-import 'package:shop_app/screens/products/product.dart';
-import 'package:shop_app/style/theme.dart';
-import 'package:shop_app/widgets/NetImage.dart';
-import 'package:shop_app/widgets/appbarMain.dart';
-import 'package:shop_app/widgets/bannerSlider.dart';
+import '/cubit/home/homeCubit.dart';
+import '/cubit/home/homeStates.dart';
+import '/model/home/cateogriesModel.dart';
+import '/model/home/homeModel.dart';
+import '/screens/products/product.dart';
+import '/style/theme.dart';
+import '/widgets/NetImage.dart';
+import '/widgets/appbarMain.dart';
+import '/widgets/bannerSlider.dart';
 
 class ProductsScreen extends StatelessWidget {
   @override
@@ -91,7 +92,7 @@ class ProductsScreen extends StatelessWidget {
                                   filled: true,
                                   fillColor: theme.brightness == Brightness.dark
                                       ? Color(0xff252A34)
-                                      : Colors.grey[300],
+                                      : Colors.grey[200],
                                   border: InputBorder.none,
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
@@ -99,7 +100,7 @@ class ProductsScreen extends StatelessWidget {
                                         color:
                                             theme.brightness == Brightness.dark
                                                 ? Color(0xff252A34)
-                                                : Colors.grey[300]!),
+                                                : Colors.grey[200]!),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
@@ -107,7 +108,7 @@ class ProductsScreen extends StatelessWidget {
                                         color:
                                             theme.brightness == Brightness.dark
                                                 ? Color(0xff252A34)
-                                                : Colors.grey[300]!),
+                                                : Colors.grey[200]!),
                                   ),
                                 )),
                             noItemsFoundBuilder: (_) {
@@ -327,8 +328,12 @@ class ProductsScreen extends StatelessWidget {
                 // childAspectRatio: 1 / 1.8,
                 children: List.generate(
                   cubit.homeModel!.data!.products.length,
-                  (index) => productItem(cubit.homeModel!.data!.products[index],
-                      theme, cubit, context, index),
+                  (index) => ProductItem(
+                    cubit.homeModel!.data!.products[index],
+                    theme,
+                    cubit,
+                    index,
+                  ),
                 ),
               ),
             ],
@@ -337,108 +342,118 @@ class ProductsScreen extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget productItem(ProductsModel productModel, ThemeData theme,
-          HomeCubit cubit, context, int index) =>
-      InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ProductScreen(index)));
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: theme.cardColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.bottomCenter,
-                children: [
-                  netImage(imageUrl: productModel.image!),
-                  if (productModel.discount! != 0)
-                    Positioned(
-                      bottom: 15,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: accentColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        // height: 20,
-                        child: Center(
-                          child: Text(
-                            '${productModel.discount!} %',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
+class ProductItem extends StatelessWidget {
+  ProductItem(
+    this.productModel,
+    this.theme,
+    this.cubit,
+    this.index,
+  );
+  final ProductsModel? productModel;
+  final ThemeData? theme;
+  final HomeCubit cubit;
+  final int? index;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => navPush(context, ProductScreen(index)),
+      child: Container(
+        decoration: BoxDecoration(
+          color: theme!.cardColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                netImage(imageUrl: productModel!.image!),
+                if (productModel!.discount! != 0)
+                  Positioned(
+                    bottom: 15,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: accentColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      // height: 20,
+                      child: Center(
+                        child: Text(
+                          '${productModel!.discount!} %',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
                     ),
+                  ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(15, 20, 15, 0),
+              child: Column(
+                children: [
+                  Text(
+                    '${productModel!.name!}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme!.textTheme.headline5!.copyWith(
+                      fontSize: 17,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$ ${productModel!.price!.toString()}',
+                        style: TextStyle(
+                          color: accentColor,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 17,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () => cubit.changeInCart(productModel!.id!),
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: cubit.inCart[productModel!.id]!
+                                ? accentColor
+                                : Colors.transparent,
+                            border: Border.all(
+                              color: cubit.inCart[productModel!.id]!
+                                  ? accentColor
+                                  : theme!.textTheme.headline5!.color!,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            cubit.inCart[productModel!.id]!
+                                ? Icons.shopping_cart_outlined
+                                : Icons.add,
+                            color: cubit.inCart[productModel!.id]!
+                                ? Colors.white
+                                : theme!.textTheme.headline5!.color!,
+                            size: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(15, 20, 15, 0),
-                child: Column(
-                  children: [
-                    Text(
-                      '${productModel.name!}',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.headline5!.copyWith(
-                        fontSize: 17,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '\$ ${productModel.price!.toString()}',
-                          style: TextStyle(
-                            color: accentColor,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 17,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () => cubit.changeInCart(productModel.id!),
-                          borderRadius: BorderRadius.circular(8),
-                          child: Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: cubit.inCart[productModel.id]!
-                                  ? accentColor
-                                  : Colors.transparent,
-                              border: Border.all(
-                                color: cubit.inCart[productModel.id]!
-                                    ? accentColor
-                                    : theme.textTheme.headline5!.color!,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Icon(
-                              cubit.inCart[productModel.id]!
-                                  ? Icons.shopping_cart_outlined
-                                  : Icons.add,
-                              color: cubit.inCart[productModel.id]!
-                                  ? Colors.white
-                                  : theme.textTheme.headline5!.color!,
-                              size: 18,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

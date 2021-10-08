@@ -44,7 +44,7 @@ class MainButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         primary: color,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
         ),
       ),
     );

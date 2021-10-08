@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/style/theme.dart';
+import 'package:carty/cubit/home/homeCubit.dart';
+import 'package:carty/cubit/home/homeStates.dart';
+import 'package:carty/style/theme.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -34,26 +34,20 @@ class CartScreen extends StatelessWidget {
                     Text(
                       'My Cart',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     cubit.cartItems.isNotEmpty
                         ? IconButton(
-                            onPressed: () {
-                              cubit.deleteAllCart();
-                            },
+                            onPressed: () => cubit.deleteAllCart(),
                             splashRadius: 24,
                             icon: Icon(
                               Icons.delete_forever_outlined,
                               size: 25,
-                              color: Colors.black45,
                             ),
                           )
-                        : Container(
-                            width: 45,
-                          ),
+                        : Container(width: 45),
                   ],
                 ),
               ),
@@ -119,7 +113,7 @@ class CartScreen extends StatelessWidget {
                               height: 1.3,
                               letterSpacing: .8,
                               fontWeight: FontWeight.w400,
-                              color: Colors.black45,
+                              color: Colors.grey[600],
                             ),
                           ),
                           SizedBox(height: 50),
@@ -286,17 +280,11 @@ class CartScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[100]!.withOpacity(.8),
-                    blurRadius: 8,
-                    spreadRadius: 5,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                   image: imageProvider,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.scaleDown,
+                  scale: 8,
                 ),
               ),
             ),
@@ -324,7 +312,6 @@ class CartScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
                   ),
                 ),
                 SizedBox(height: 5),
@@ -377,7 +364,6 @@ class CartScreen extends StatelessWidget {
                       child: Text(
                         cubit.cartItems[index].quantity.toString(),
                         style: TextStyle(
-                          color: Colors.grey[600],
                           fontSize: 17,
                           fontWeight: FontWeight.w800,
                         ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/model/settings/faqModel.dart';
-import 'package:shop_app/style/theme.dart';
+import 'package:carty/cubit/home/homeCubit.dart';
+import 'package:carty/cubit/home/homeStates.dart';
+import 'package:carty/model/settings/faqModel.dart';
+import 'package:carty/style/theme.dart';
 
 class FAQScreen extends StatelessWidget {
   const FAQScreen({Key? key}) : super(key: key);
@@ -86,13 +86,17 @@ class FAQScreen extends StatelessWidget {
       ),
       child: ListTileTheme(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        tileColor: Color(0xffF2F2F2),
+        tileColor: Theme.of(context).brightness == Brightness.light
+            ? Color(0xffF2F2F2)
+            : Color(0xff252A34),
         child: ExpansionTile(
-          childrenPadding: EdgeInsets.only(left: 50, top: 20),
+          childrenPadding: EdgeInsets.only(right: 50, top: 20),
           title: Text(
             questionData.question!,
             style: TextStyle(
-              color: Color(0xff656565),
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xff656565)
+                  : Colors.white,
               fontWeight: FontWeight.w700,
               fontSize: 17,
             ),
@@ -101,13 +105,17 @@ class FAQScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Color(0xffFAFAFA),
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Color(0xffFAFAFA)
+                    : Color(0x80252A34),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Text(
                 questionData.answer!,
                 style: TextStyle(
-                  color: Color(0xffAEAEAE),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Color(0xffAEAEAE)
+                      : Colors.white70,
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
                 ),

@@ -1,15 +1,16 @@
+import 'package:carty/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/style/theme.dart';
-import '../../cubit/sign/signCubit.dart';
-import '../../cubit/sign/signStates.dart';
-import '../../screens/home/home.dart';
-import '../../screens/sign/signUp.dart';
-import '../../sharedpreference/sharedpreference.dart';
-import '../../widgets/buttonMain.dart';
-import '../../widgets/textFieldGrey.dart';
+import '/cubit/home/homeCubit.dart';
+import '/style/theme.dart';
+import '/cubit/sign/signCubit.dart';
+import '/cubit/sign/signStates.dart';
+import '/screens/home/home.dart';
+import '/screens/sign/signUp.dart';
+import '../../utils/sharedpreference.dart';
+import '/widgets/buttonMain.dart';
+import '/widgets/textFieldGrey.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -31,11 +32,7 @@ class LoginScreen extends StatelessWidget {
                 ..getCateogriesData()
                 ..getUserData()
                 ..getFavorites();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-                (Route<dynamic> route) => false,
-              );
+              navPushRemove(context, HomeScreen());
             });
 
             Fluttertoast.showToast(
@@ -100,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                           child: Text(
@@ -144,10 +141,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpScreen()));
-                        },
+                        onPressed: () => navPush(context, SignUpScreen()),
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           shape: RoundedRectangleBorder(

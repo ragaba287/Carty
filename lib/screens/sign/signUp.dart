@@ -1,13 +1,14 @@
+import 'package:carty/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/sign/signCubit.dart';
-import 'package:shop_app/cubit/sign/signStates.dart';
-import 'package:shop_app/screens/home/home.dart';
-import 'package:shop_app/sharedpreference/sharedpreference.dart';
-import 'package:shop_app/widgets/buttonMain.dart';
-import 'package:shop_app/widgets/textFieldGrey.dart';
+import 'package:carty/cubit/home/homeCubit.dart';
+import 'package:carty/cubit/sign/signCubit.dart';
+import 'package:carty/cubit/sign/signStates.dart';
+import 'package:carty/screens/home/home.dart';
+import 'package:carty/utils/sharedpreference.dart';
+import 'package:carty/widgets/buttonMain.dart';
+import 'package:carty/widgets/textFieldGrey.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
@@ -35,11 +36,7 @@ class SignUpScreen extends StatelessWidget {
                 ..getCateogriesData()
                 ..getUserData()
                 ..getFavorites();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-                (Route<dynamic> route) => false,
-              );
+              navPushRemove(context, HomeScreen());
             });
 
             Fluttertoast.showToast(
@@ -93,8 +90,13 @@ class SignUpScreen extends StatelessWidget {
                       TextfieldGray(
                         hintText: 'Email Address',
                         textEditingController: emailTextEdit,
-                        validator: (value) =>
-                            value.isEmpty ? 'please enter your email' : null,
+                        validator: (String value) {
+                          if (value.isEmpty) return 'please enter your email';
+                          if (!value.contains("@"))
+                            return 'Email is not correct';
+                          else
+                            return null;
+                        },
                       ),
                       SizedBox(height: 15),
                       TextfieldGray(
@@ -137,7 +139,7 @@ class SignUpScreen extends StatelessWidget {
                             ),
                       SizedBox(height: 25),
                       TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => navPop(context),
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           shape: RoundedRectangleBorder(

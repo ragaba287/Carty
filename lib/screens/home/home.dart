@@ -1,9 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/cubit/home/homeCubit.dart';
-import 'package:shop_app/cubit/home/homeStates.dart';
-import 'package:shop_app/style/theme.dart';
+import 'package:carty/cubit/home/homeCubit.dart';
+import 'package:carty/cubit/home/homeStates.dart';
+import 'package:carty/style/theme.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -31,11 +31,9 @@ class HomeScreen extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: BottomNavyBar(
-              itemCornerRadius: 18,
+              itemCornerRadius: 15,
               curve: Curves.easeInCubic,
-              onItemSelected: (index) {
-                cubit.changeBottomNav(index);
-              },
+              onItemSelected: (index) => cubit.changeBottomNav(index),
               selectedIndex: cubit.currentIndex,
               backgroundColor: Colors.transparent,
               showElevation: false,

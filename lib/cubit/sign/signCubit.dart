@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/dio/dioHelper.dart';
-import 'package:shop_app/model/sign/signInModel.dart';
-import 'package:shop_app/model/sign/signUpModel.dart';
-import 'package:shop_app/cubit/sign/signStates.dart';
+import 'package:carty/dio/dioHelper.dart';
+import 'package:carty/model/sign/signInModel.dart';
+import 'package:carty/model/sign/signUpModel.dart';
+import 'package:carty/cubit/sign/signStates.dart';
 
 class ShopSignCubit extends Cubit<ShopStates> {
   ShopSignCubit() : super(ShopLoginInitState());
