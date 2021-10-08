@@ -1,16 +1,30 @@
-# shop_app
+# Carty
+An ECommerce Flutter application using Api and Flutter BLoC as state management
 
-A new Flutter project.
+### A few resources you may need for this application
+- [Presentation with app screens](Carty_Presentation.xd)
+- [The Complete 2021 Flutter & Dart Development Course](https://www.udemy.com/course/complete-flutter-arabic/)  - Section 8 
 
-## Getting Started
+### Packages Used
+- Cached_network_image
+- Carousel_slider
+- Cupertino_icons
+- Dio
+- Flutter_bloc
+- Flutter_svg
+- Fluttertoast
+- Introduction_screen
+- Shared_preferences
+- Bottom_navy_bar
+- Flutter_typeahead
 
-This project is a starting point for a Flutter application.
+### Not Included (ToDo)
+- Responsive design
+- IOS Compatible
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots from real app
+|Dark Mode|Light Mode|
+| ------------- | ------------- |
+|![Alt text](Screenshots/Carty_Dark1.png?raw=true "Login")|![Alt text](Screenshots/Carty_Light1.png?raw=true "Login")|
+|![Alt text](Screenshots/Carty_Dark2.png?raw=true "Login")|![Alt text](Screenshots/Carty_Light2.png?raw=true "Login")|
