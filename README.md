@@ -1,11 +1,11 @@
 # Carty
 An ECommerce Flutter application using Api and Flutter BLoC as state management
 
-### A few resources you may need for this application
+#### A few resources you may need for this application
 - [Presentation with app screens](Carty_Presentation.xd)
 - [The Complete 2021 Flutter & Dart Development Course](https://www.udemy.com/course/complete-flutter-arabic/)  - Section 8 
 
-### Packages Used
+## Packages Used
 - Cached_network_image
 - Carousel_slider
 - Cupertino_icons
@@ -18,9 +18,12 @@ An ECommerce Flutter application using Api and Flutter BLoC as state management
 - Bottom_navy_bar
 - Flutter_typeahead
 
-### Not Included (ToDo)
-- Responsive design
-- IOS Compatible
+## What's Next?
+ - [ ] Responsive design
+ - [ ] IOS Compatible
+ - [ ] Profile Screen
+ - [ ] Category Screen
+ - [ ] Filter Bottom Sheet
 
 
 ## Screenshots from real app
